@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AbduCoffeeBar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",sans-serif;}
+body{background:#f5f5f5;color:#222;transition:0.3s;}
+.dark-mode{background:#121212;color:#eee;}
+.dark-mode .card{background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);color:#eee;border:1px solid rgba(255,255,255,0.2);}
+.dark-mode .card h4{color:#fff;}
+header{position:fixed;top:0;left:0;width:100%;padding:15px 25px;background:#ffffffd9;backdrop-filter:blur(10px);display:flex;justify-content:center;align-items:center;z-index:2000;transition:.3s;}
+header h1{font-size:22px;font-weight:700;color:#6a4c37;cursor:pointer;letter-spacing:1px;}
+.hero{position:relative;height:480px;width:100%;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;margin-top:70px;border-radius:20px;}
+.hero img{position:absolute;width:100%;height:100%;object-fit:cover;top:0;left:0;opacity:0;transition:1.2s ease-in-out;z-index:-1;border-radius:20px;}
+.hero img.active{opacity:1;}
+.hero h2{font-size:48px;color:#fff;font-weight:800;text-shadow:0 4px 12px #000;animation:fadeInUp 1s;}
+.hero p{color:#eee;margin-top:10px;font-size:20px;text-shadow:0 3px 10px #000;animation:fadeInUp 1.2s;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+#darkToggle{position:fixed;bottom:20px;right:20px;background:#6a4c37;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;z-index:5000;display:flex;align-items:center;gap:6px;transition:.3s;font-weight:600;}
+#darkToggle:hover{background:#533a29;}
+section{padding:50px 20px;max-width:1100px;margin:auto;}
+section h3{text-align:center;font-size:32px;color:#6a4c37;font-weight:700;margin-bottom:20px;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.card{background:#fff;border-radius:20px;padding:15px;box-shadow:0 3px 12px rgba(0,0,0,0.1);text-align:center;overflow:hidden;transition:.3s;display:flex;flex-direction:column;}
+.card img{width:100%;border-radius:14px;margin-bottom:12px;opacity:0;animation:fadeInUp 0.8s forwards;}
+.card h4{margin-bottom:12px;color:#6a4c37;}
+.order-btn{margin-top:auto;background:#6a4c37;color:#fff;padding:12px 20px;border-radius:24px;font-size:16px;cursor:pointer;font-weight:600;letter-spacing:0.5px;border:2px solid #6a4c37;overflow:hidden;position:relative;transition:0.3s;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+.order-btn:hover{background:#533a29;border-color:#533a29;transform:scale(1.05);}
+.order-btn:active{transform:scale(0.97);}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#6a4c37;color:#fff;padding:12px 18px;border-radius:24px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.2);opacity:0;transition:0.4s;z-index:6000;}
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+th,td{border:1px solid #ccc;padding:10px;text-align:center;}
+th{background:#6a4c37;color:#fff;}
+footer{background:#6a4c37;color:#fff;padding:40px 20px;text-align:center;margin-top:40px;border-top-left-radius:40px;border-top-right-radius:40px;transition:.3s;}
+.dark-mode footer{background:#1f1f1f;}
+#preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;display:flex;justify-content:center;align-items:center;z-index:4000;transition:0.3s;}
+.dark-mode #preloader{background:#121212;}
+#preloader span{width:12px;height:12px;margin:5px;background:#6a4c37;border-radius:50%;display:inline-block;animation:preloaderAnim 0.6s infinite alternate;}
+#preloader span:nth-child(2){animation-delay:0.2s;}
+#preloader span:nth-child(3){animation-delay:0.4s;}
+@keyframes preloaderAnim{from{transform:translateY(0);}to{transform:translateY(-15px);}}
+</style>
+</head>
+<body>
+<div id="preloader"><span></span><span></span><span></span></div>
+<header>
+  <h1>AbduCoffeeBar</h1>
+</header>
+<div class="hero" id="hero">
+  <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&w=1200" class="active">
+  <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&w=1200">
+  <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&w=1200">
+  <h2>AbduCoffeeBar</h2>
+  <p>Best Coffee Experience</p>
+</div>
+<div id="darkToggle" onclick="toggleDarkMode()">
+  <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M12 8a4 4 0 1 1-4-4 4 4 0 0 1 4 4z"/>
+  </svg>
+  Dark Mode
+</div>
+<section id="menu">
+  <h3>Menu</h3>
+  <div class="menu-grid">
+    <div class="card"><img src="https://images.pexels.com/photos/302895/pexels-photo-302895.jpeg"><h4>Caramel Latte</h4><button class="order-btn" onclick="orderCoffee('Caramel Latte')">Order Now</button></div>
+    <div class="card"><img src="https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg"><h4>Cappuccino</h4><button class="order-btn" onclick="orderCoffee('Cappuccino')">Order Now</button></div>
+    <div class="card"><img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg"><h4>Espresso</h4><button class="order-btn" onclick="orderCoffee('Espresso')">Order Now</button></div>
+  </div>
+</section>
+<section id="prices">
+<h3>Prices</h3>
+<table>
+<tr><th>Coffee</th><th>Price ($)</th></tr>
+<tr><td>Espresso</td><td>3</td></tr>
+<tr><td>Cappuccino</td><td>4</td></tr>
+<tr><td>Latte</td><td>4.5</td></tr>
+<tr><td>Cold Brew</td><td>3.5</td></tr>
+</table>
+</section>
+<section id="hours">
+<h3>Working Hours</h3>
+<p style="text-align:center;font-size:20px;">Mon–Sun 08:00 — 22:00</p>
+</section>
+<section id="contact">
+<h3>Contact</h3>
+<p style="text-align:center;font-size:20px;">
+Email: <b>abdughafur.2010.khujzoda@gmail.com</b><br>
+Phone: <b>+992 928 02 44 14</b>
+</p>
+</section>
+<footer>© 2025 AbduCoffeeBar — All Rights Reserved</footer>
+<script>
+window.addEventListener('load', ()=>{document.getElementById('preloader').style.display='none';});
+let heroImgs=document.querySelectorAll(".hero img");let current=0;setInterval(()=>{heroImgs[current].classList.remove("active");current=(current+1)%heroImgs.length;heroImgs[current].classList.add("active");},4000);
+function toggleDarkMode(){document.body.classList.toggle("dark-mode");let i=document.getElementById("themeIcon");if(document.body.classList.contains("dark-mode")){i.innerHTML='<path d="M12 8a4 4 0 1 1-4-4 4 4 0 0 1 4 4z"/>'}else{i.innerHTML='<path d="M6 0a6 6 0 1 0 6 6A6 6 0 0 0 6 0zm0 11a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>'}}
+function orderCoffee(name){
+  let orders=JSON.parse(localStorage.getItem("orders")||"[]");
+  orders.push({coffee:name,time:new Date().toLocaleString()});
+  localStorage.setItem("orders",JSON.stringify(orders));
+  let t=document.createElement("div");
+  t.className="toast";t.innerText=name+" ordered!";
+  t.style.background="#6a4c37";
+  document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity="1";},50);
+  setTimeout(()=>{t.style.opacity="0";setTimeout(()=>{t.remove();},400);},2000);
+}
+</script>
+</body>
+</html>
